@@ -718,16 +718,16 @@ public abstract class AbstractDependencyVersionsMojo extends AbstractMojo
      * than the artifactResolver. However, due to MNG-3236 the artifact filter is not applied when resolving dependencies and this method relies on the artifact filter to get
      * the scoping right. Well, maybe in maven 3.0 this will be better. Or different. Whatever comes first.
      */
-    private Set resolveDependenciesInItsOwnScope(final Artifact artifact, final ArtifactFilter filter)
+    private Set<Artifact> resolveDependenciesInItsOwnScope(final Artifact artifact, final ArtifactFilter filter)
     {
         ProjectBuildingRequest projectBuildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         MavenProject artifactProject;
         try {
             artifactProject = mavenProjectBuilder.build(artifact, projectBuildingRequest).getProject();
         } catch (Exception e) {
-            LOG.warn("Failed to build maven project for artifact {}", artifact.toString());
+            LOG.warn("Failed to build maven project for artifact {}", artifact);
             LOG.debug("", e);
-            return Collections.EMPTY_SET;
+            return Collections.emptySet();
         }
 
         projectBuildingRequest.setProject(artifactProject);
@@ -736,9 +736,9 @@ public abstract class AbstractDependencyVersionsMojo extends AbstractMojo
         try {
             rootNode = dependencyGraphBuilder.buildDependencyGraph(projectBuildingRequest, filter);
         } catch (Exception e) {
-            LOG.warn("Failed to build Dependency Graph project for artifact {}", artifact.toString());
+            LOG.warn("Failed to build Dependency Graph project for artifact {}", artifact);
             LOG.debug("", e);
-            return Collections.EMPTY_SET;
+            return Collections.emptySet();
         }
 
         CollectingDependencyNodeVisitor visitor = new CollectingDependencyNodeVisitor();
@@ -748,7 +748,7 @@ public abstract class AbstractDependencyVersionsMojo extends AbstractMojo
         List<DependencyNode> nodes = visitor.getNodes();
         for (DependencyNode dependencyNode : nodes) {
             if (dependencyNode.getOptional() == null || !dependencyNode.getOptional()) {
-                LOG.debug("Resolved Artifact: {}", dependencyNode.getArtifact().toString());
+                LOG.debug("Resolved Artifact: {}", dependencyNode.getArtifact());
                 artifactSet.add(dependencyNode.getArtifact());
             }
         }
