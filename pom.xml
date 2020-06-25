@@ -85,12 +85,14 @@
 
   <distributionManagement>
     <repository>
-      <id>releases</id>
-      <url>https://alianza.jfrog.io/alianza/plugins-release</url>
+      <id>central</id>
+      <name>alianza-releases</name>
+      <url>https://alianza.jfrog.io/artifactory/plugins-release</url>
     </repository>
     <snapshotRepository>
       <id>snapshots</id>
-      <url>https://alianza.jfrog.io/alianza/plugins-snapshot</url>
+      <name>alianza-snapshots</name>
+      <url>https://alianza.jfrog.io/artifactory/plugins-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
 
