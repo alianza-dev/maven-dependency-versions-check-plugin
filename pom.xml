@@ -84,11 +84,16 @@
   </issueManagement>
 
   <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <url>https://alianza.jfrog.io/alianza/plugins-release</url>
+    </repository>
     <snapshotRepository>
-      <id>snapshot</id>
-      <url>https://alianza.jfrog.io/artifactory/plugins-snapshot</url>
+      <id>snapshots</id>
+      <url>https://alianza.jfrog.io/alianza/plugins-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
+
   <properties>
     <dep.maven-api.version>3.6.3</dep.maven-api.version>
     <dep.plexus.version>2.1.0</dep.plexus.version>
